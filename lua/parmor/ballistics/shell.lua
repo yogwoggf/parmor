@@ -46,9 +46,9 @@ function Shell:Simulate(dt)
 		if trace.Hit then
 			-- Basic penetration calculations for now
 			if IsValid(trace.Entity) then
-				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type, ent = trace.Entity})
+				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type, ent = trace.Entity, tr = trace})
 			else
-				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type})
+				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type, tr = trace})
 			end
 			self.dead = true
 			--self.model:Remove()

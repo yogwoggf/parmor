@@ -27,16 +27,16 @@ function PArmor.SendBallisticEvent(type, data)
 end
 
 function PArmor.MetersToHU(meter)
-	return meter / 0.01905
+	return (meter / 0.75) / 0.0254
 end
 
 function PArmor.HUToMeters(hu)
-	return hu * 0.01905
+	return (hu * 0.75) * 0.0254 -- Entity to architectural scale
 end
 
 include("ballistics/shell.lua")
 function PArmor.SpawnShell(origin, dir, vel)
-	local shell = PArmor.Shell.new(origin, dir * PArmor.MetersToHU(vel), "he")
+	local shell = PArmor.Shell.new(origin, dir * PArmor.MetersToHU(vel), "ap")
 	PArmor.World[#PArmor.World+1] = shell
 end
 
@@ -50,6 +50,7 @@ end
 if SERVER then
 	include("he_shell.lua")
 	include("rocket.lua")
+	include("ap_shell.lua")
 end
 
 local lastTime = os.clock()
