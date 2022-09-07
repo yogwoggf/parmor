@@ -1,19 +1,24 @@
 -- Basic ballistics for a shell.
 AddCSLuaFile()
 
+---@class ShellInfo Information for a shell
+---@field Type string Type of shell
+---@field Weight number Weight of shell in kilograms
+---@field Caliber number Caliber of shell in millimeters
+
 ---@class Shell A ballistics object for a tank shell.
 ---@field pos GVector Point in the map
 ---@field velocity GVector Current velocity
----@field type string Type of shell
+---@field info ShellInfo Shell information
 ---@field dead boolean If the shell is dead (hit and already sent out events)
 local Shell = {}
 Shell.__index = Shell
 
-function Shell.new(origin, velocity, type)
+function Shell.new(origin, velocity, info)
 	local self = {
 		pos = origin,
 		velocity = velocity,
-		type = type,
+		info = info,
 		dead = false,
 	}
 
@@ -46,9 +51,9 @@ function Shell:Simulate(dt)
 		if trace.Hit then
 			-- Basic penetration calculations for now
 			if IsValid(trace.Entity) then
-				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type, ent = trace.Entity, tr = trace})
+				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, info = self.info, ent = trace.Entity, tr = trace})
 			else
-				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, type = self.type, tr = trace})
+				PArmor.SendBallisticEvent(PArmor.WorldEvents.SHELL_HIT, {pos = self.pos, info = self.info, tr = trace})
 			end
 			self.dead = true
 			--self.model:Remove()

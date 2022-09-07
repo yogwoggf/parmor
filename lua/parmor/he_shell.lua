@@ -1,7 +1,7 @@
 -- Ballistic event for the HE shell
 
 PArmor.RegisterBallisticEvent(PArmor.WorldEvents.SHELL_HIT, function(data)
-	if data.type == "he" then
+	if data.info.Type == "HE" then
 		local fxData = EffectData()
 		fxData:SetOrigin(data.pos)
 		

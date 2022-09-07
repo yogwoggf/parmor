@@ -35,8 +35,8 @@ function PArmor.HUToMeters(hu)
 end
 
 include("ballistics/shell.lua")
-function PArmor.SpawnShell(origin, dir, vel)
-	local shell = PArmor.Shell.new(origin, dir * PArmor.MetersToHU(vel), "ap")
+function PArmor.SpawnShell(origin, dir, vel, info)
+	local shell = PArmor.Shell.new(origin, dir * PArmor.MetersToHU(vel), info)
 	PArmor.World[#PArmor.World+1] = shell
 end
 
